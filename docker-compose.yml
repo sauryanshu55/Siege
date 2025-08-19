@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: siege-postgres
+    environment:
+      POSTGRES_DB: siege_game
+      POSTGRES_USER: siege_user
+      POSTGRES_PASSWORD: siege_password
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U siege_user -d siege_game"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - siege-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: siege-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - siege-network
+
+  # Optional: Redis Commander for GUI management of Redis
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: siege-redis-commander
+    environment:
+      REDIS_HOSTS: local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+    networks:
+      - siege-network
+    profiles:
+      - tools  # Only start when using --profile tools
+
+  # Optional: pgAdmin for GUI management of PostgreSQL
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: siege-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@siege.local
+      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - siege-network
+    profiles:
+      - tools  # Only start when using --profile tools
+
+volumes:
+  postgres_data:
+  redis_data:
+  pgadmin_data:
+
+networks:
+  siege-network:
+    driver: bridge

@@ -1,0 +1,301 @@
+# =============================================================================
+# Go Backend
+# =============================================================================
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+/bin/
+/dist/
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+coverage.txt
+coverage.html
+
+# Dependency directories (remove the comment below to include it)
+vendor/
+
+# Go workspace file
+go.work
+
+# Go module cache
+go.sum
+
+# Build output
+/build/
+/release/
+
+# =============================================================================
+# Angular Frontend
+# =============================================================================
+
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Angular build outputs
+/frontend/dist/
+/frontend/tmp/
+/frontend/out-tsc/
+/frontend/.angular/
+
+# Angular cache
+.angular/cache
+
+# Package manager files
+package-lock.json
+yarn.lock
+
+# Angular environment files (keep templates, ignore actual config)
+/frontend/src/environments/environment.prod.ts
+/frontend/src/environments/environment.local.ts
+
+# =============================================================================
+# Database Files
+# =============================================================================
+
+# PostgreSQL
+*.sql~
+/postgres-data/
+/db-data/
+/pgdata/
+
+# Database dumps
+*.dump
+*.sql.gz
+
+# Migration temporary files
+*.migration.tmp
+
+# =============================================================================
+# Redis
+# =============================================================================
+
+# Redis data files
+*.rdb
+*.aof
+/redis-data/
+
+# =============================================================================
+# Docker & Containers
+# =============================================================================
+
+# Docker volume data
+/docker-data/
+/volumes/
+
+# Docker compose override files
+docker-compose.override.yml
+docker-compose.local.yml
+
+# Container logs
+*.log
+
+# =============================================================================
+# Infrastructure & DevOps
+# =============================================================================
+
+# Terraform files
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform/
+.terraform.lock.hcl
+
+# Kubernetes secrets and local configs
+/k8s/secrets/
+*.secret.yaml
+/helm/values.local.yaml
+
+# =============================================================================
+# Environment & Configuration
+# =============================================================================
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.staging
+
+# Configuration files with sensitive data
+config.local.json
+config.prod.json
+/configs/local/
+/configs/secrets/
+
+# SSL certificates and keys
+*.pem
+*.key
+*.crt
+*.cert
+
+# =============================================================================
+# IDE & Editor Files
+# =============================================================================
+
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# IntelliJ IDEA / GoLand
+.idea/
+*.iml
+*.iws
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# =============================================================================
+# Operating System Files
+# =============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# =============================================================================
+# Temporary & Cache Files
+# =============================================================================
+
+# General temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cache directories
+.cache/
+.tmp/
+tmp/
+
+# =============================================================================
+# Testing & Coverage
+# =============================================================================
+
+# Test results
+/test-results/
+/coverage/
+/reports/
+
+# E2E testing
+/e2e/screenshots/
+/e2e/videos/
+
+# Load testing results
+/load-test-results/
+
+# =============================================================================
+# Documentation Build Files
+# =============================================================================
+
+# Generated documentation
+/docs/build/
+/docs/site/
+
+# =============================================================================
+# Project Specific
+# =============================================================================
+
+# Local development scripts
+/scripts/local/
+run-local.sh
+debug.sh
+
+# Performance profiling
+*.prof
+*.pprof
+
+# Local data files for development
+/testdata/local/
+/sample-data/
+
+# Backup files
+*.backup
+
+# =============================================================================
+# Security & Secrets
+# =============================================================================
+
+# API keys and secrets
+secrets.json
+.secrets
+api-keys.txt
+
+# JWT keys
+jwt.key
+jwt.pub
+
+# Database connection strings
+db-connection.txt
+
+# =============================================================================
+# Monitoring & Logging
+# =============================================================================
+
+# Prometheus data
+/prometheus-data/
+
+# Grafana data
+/grafana-data/
+
+# Application logs
+/logs/
+app.log
+error.log
+access.log
