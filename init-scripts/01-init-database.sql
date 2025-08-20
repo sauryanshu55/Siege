@@ -1,5 +1,5 @@
 -- Ensure the database exists 
-SELECT 'CREATE DATABASE siege_game' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'siege_game');
+SELECT 'CREATE DATABASE siege_game' WHERE NOT EXISTS (SELECT 1 FROM pg_database WHERE datname = 'siege_game');
 
 -- Connect to database
 \c siege_game;
@@ -8,7 +8,7 @@ SELECT 'CREATE DATABASE siege_game' WHERE NOT EXISTS (SELECT FROM pg_database WH
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- Create enum types
-CREATE TYPE IF team_type AS ENUM ('red', 'black');
+CREATE TYPE team_type AS ENUM ('red', 'black');
 CREATE TYPE game_status AS ENUM ('waiting', 'active', 'completed');
 
 -- Create players table
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS players (
     team team_type,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     last_move_time TIMESTAMP WITH TIME ZONE,
-    total_moves INTEGER DEFAULT 0,
+    total_moves INTEGER DEFAULT 0
 );
 
 -- Create games table
