@@ -1,6 +1,3 @@
-# Siege Game - Local Development Environment Setup Script (PowerShell)
-# This script sets up and tests the local development environment
-
 param(
     [switch]$WithTools,
     [switch]$Reset,

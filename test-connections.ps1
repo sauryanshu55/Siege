@@ -1,6 +1,3 @@
-# Simple connection testing script for Siege Game local environment (PowerShell)
-# This script can be run anytime to verify services are working
-
 # Function to print colored output
 function Write-Test {
     param([string]$Message)
