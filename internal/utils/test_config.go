@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"encoding/json"
@@ -8,7 +8,7 @@ import (
 	"github.com/sauryanshu55/Siege/internal/config"
 )
 
-func main() {
+func test() {
 	fmt.Println("Testing Go Configuration file")
 	fmt.Println("================================")
 
