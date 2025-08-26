@@ -9,9 +9,9 @@ import (
 type GameStatus string
 
 const (
-	GameStatusWaiting   GameStatus = "waiting"
-	GameStatusActive    GameStatus = "active"
-	GameStatusCompleted GameStatus = "completed"
+	GameStatusWaiting   GameStatus = "waiting"   // refers to games created, that have no players yet
+	GameStatusActive    GameStatus = "active"    // have active players
+	GameStatusCompleted GameStatus = "completed" // game is finished
 )
 
 type Game struct {

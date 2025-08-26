@@ -11,7 +11,6 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 
@@ -22,12 +21,8 @@ import (
 )
 
 func main() {
-	// Load environment variables
-	if err := godotenv.Load(".env.development"); err != nil {
-		log.Println("No .env.development file found, using system environment variables")
-	}
 
-	// Load configuration
+	// Load configuration from config/config.go
 	cfg, err := config.Load()
 	if err != nil {
 		log.Fatalf("Failed to load config: %v", err)
@@ -36,20 +31,20 @@ func main() {
 	// Set Gin mode
 	gin.SetMode(cfg.Server.Mode)
 
-	// Initialize database connections - now returns specific types
+	// Initialize database connections
 	db, err := database.InitPostgres(cfg.Database)
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
-	defer database.ClosePostgres()
+	defer database.ClosePostgres() // Close Postgres connection once main function exits
 
 	redisClient, err := database.InitRedis(cfg.Redis)
 	if err != nil {
 		log.Fatalf("Failed to connect to Redis: %v", err)
 	}
-	defer database.CloseRedis()
+	defer database.CloseRedis() // Close Redis connection once main function exits
 
-	// Initialize router
+	// Initialize HTTP router
 	router := setupRouter(cfg, db, redisClient)
 
 	// Create HTTP server
@@ -66,15 +61,15 @@ func main() {
 		}
 	}()
 
-	// Wait for interrupt signal to gracefully shutdown
+	// Wait for interrupt signal
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-	<-quit
+	<-quit // block main goroutine until signal recieved
 	log.Println("Shutting down server...")
 
-	// Graceful shutdown with timeout
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
+	// graceful shutdown after 10s
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second) //pass 10s for shutdown
+	defer cancel()                                                           //call cancel() and unblock if shutdown completes before timeout
 
 	if err := server.Shutdown(ctx); err != nil {
 		log.Fatalf("Server forced to shutdown: %v", err)
@@ -83,7 +78,7 @@ func main() {
 	log.Println("Server exited")
 }
 
-// setupRouter now receives the correct types
+// Setup HTTP router
 func setupRouter(cfg *config.Config, db *gorm.DB, redisClient *redis.Client) *gin.Engine {
 	router := gin.New()
 
@@ -92,7 +87,7 @@ func setupRouter(cfg *config.Config, db *gorm.DB, redisClient *redis.Client) *gi
 	router.Use(middleware.Recovery())
 	router.Use(middleware.CORS(cfg.Server.CORSOrigins))
 
-	// Health check endpoint
+	// Server Health check endpoint
 	router.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"status":    "healthy",
@@ -103,7 +98,7 @@ func setupRouter(cfg *config.Config, db *gorm.DB, redisClient *redis.Client) *gi
 	// API routes
 	v1 := router.Group("/api/v1")
 	{
-		// Initialize handlers with dependencies - now types match!
+		// Initialize handlers
 		gameHandler := handlers.NewGameHandler(db, redisClient)
 		playerHandler := handlers.NewPlayerHandler(db, redisClient)
 		wsHandler := handlers.NewWebSocketHandler(db, redisClient)

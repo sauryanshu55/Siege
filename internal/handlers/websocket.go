@@ -17,7 +17,7 @@ type WebSocketHandler struct {
 	upgrader websocket.Upgrader
 }
 
-// NewWebSocketHandler creates a new WebSocketHandler - THIS WAS MISSING!
+// Create and return an instance of a new websocket handler to main.go
 func NewWebSocketHandler(db *gorm.DB, redisClient *redis.Client) *WebSocketHandler {
 	return &WebSocketHandler{
 		db:    db,

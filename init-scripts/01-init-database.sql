@@ -4,7 +4,7 @@ SELECT 'CREATE DATABASE siege_game' WHERE NOT EXISTS (SELECT 1 FROM pg_database 
 -- Connect to database
 \c siege_game;
 
--- Create extensions, if needed
+-- Create extensions
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- Create enum types

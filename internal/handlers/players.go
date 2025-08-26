@@ -13,7 +13,7 @@ type PlayerHandler struct {
 	redis *redis.Client
 }
 
-// NewPlayerHandler creates a new PlayerHandler - CORRECTED SIGNATURE
+// Create and return an instance of a new player handler to main.go
 func NewPlayerHandler(db *gorm.DB, redisClient *redis.Client) *PlayerHandler {
 	return &PlayerHandler{
 		db:    db,
@@ -21,7 +21,7 @@ func NewPlayerHandler(db *gorm.DB, redisClient *redis.Client) *PlayerHandler {
 	}
 }
 
-// CreatePlayer handles POST /api/v1/players
+// CreatePlayer , POST /api/v1/players
 func (h *PlayerHandler) CreatePlayer(c *gin.Context) {
 	// TODO: Implement player creation logic
 	c.JSON(http.StatusOK, gin.H{
@@ -30,11 +30,11 @@ func (h *PlayerHandler) CreatePlayer(c *gin.Context) {
 	})
 }
 
-// GetPlayer handles GET /api/v1/players/:id
+// GetPlayer , GET /api/v1/players/:id
 func (h *PlayerHandler) GetPlayer(c *gin.Context) {
 	playerID := c.Param("id")
 
-	// TODO: Implement get player logic
+	// TODO: Implement logic
 	c.JSON(http.StatusOK, gin.H{
 		"message":   "Get player endpoint - TODO: implement",
 		"player_id": playerID,
@@ -42,7 +42,7 @@ func (h *PlayerHandler) GetPlayer(c *gin.Context) {
 	})
 }
 
-// JoinGame handles POST /api/v1/players/:id/join/:gameId
+// JoinGame , POST /api/v1/players/:id/join/:gameId
 func (h *PlayerHandler) JoinGame(c *gin.Context) {
 	playerID := c.Param("id")
 	gameID := c.Param("gameId")

@@ -13,7 +13,7 @@ type GameHandler struct {
 	redis *redis.Client
 }
 
-// NewGameHandler creates a new GameHandler - CORRECTED SIGNATURE
+// Create and return an instance of a new GameHandler to main.go
 func NewGameHandler(db *gorm.DB, redisClient *redis.Client) *GameHandler {
 	return &GameHandler{
 		db:    db,
@@ -21,20 +21,20 @@ func NewGameHandler(db *gorm.DB, redisClient *redis.Client) *GameHandler {
 	}
 }
 
-// CreateGame handles POST /api/v1/games
+// CreateGame, POST /api/v1/games
 func (h *GameHandler) CreateGame(c *gin.Context) {
-	// TODO: Implement game creation logic
+	// TODO: Implement game creation
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Create game endpoint - TODO: implement",
 		"status":  "success",
 	})
 }
 
-// GetGame handles GET /api/v1/games/:id
+// GetGame, GET /api/v1/games/:id
 func (h *GameHandler) GetGame(c *gin.Context) {
 	gameID := c.Param("id")
 
-	// TODO: Implement get game logic
+	// TODO: Implement get game
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Get game endpoint - TODO: implement",
 		"game_id": gameID,
@@ -42,7 +42,7 @@ func (h *GameHandler) GetGame(c *gin.Context) {
 	})
 }
 
-// GetGameState handles GET /api/v1/games/:id/state
+// GetGameState, GET /api/v1/games/:id/state
 func (h *GameHandler) GetGameState(c *gin.Context) {
 	gameID := c.Param("id")
 
@@ -54,7 +54,7 @@ func (h *GameHandler) GetGameState(c *gin.Context) {
 	})
 }
 
-// MakeMove handles POST /api/v1/games/:gameId/moves
+// MakeMove , POST /api/v1/games/:gameId/moves
 func (h *GameHandler) MakeMove(c *gin.Context) {
 	gameID := c.Param("gameId")
 
