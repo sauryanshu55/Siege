@@ -13,7 +13,7 @@ import (
 
 var db *gorm.DB
 
-// InitPostgres returns *gorm.DB, not interface{}
+// Initialize connection to Postgre
 func InitPostgres(cfg config.DatabaseConfig) (*gorm.DB, error) {
 	dsn := cfg.GetDatabaseConnectionString()
 
@@ -27,7 +27,7 @@ func InitPostgres(cfg config.DatabaseConfig) (*gorm.DB, error) {
 		return nil, fmt.Errorf("failed to connect to database: %w", err)
 	}
 
-	// Configure connection pool
+	// Configure the connection pool
 	sqlDB, err := db.DB()
 	if err != nil {
 		return nil, fmt.Errorf("failed to get database instance: %w", err)
@@ -37,7 +37,7 @@ func InitPostgres(cfg config.DatabaseConfig) (*gorm.DB, error) {
 	sqlDB.SetMaxIdleConns(cfg.MaxIdle)
 	sqlDB.SetConnMaxLifetime(time.Hour)
 
-	return db, nil // Return *gorm.DB directly
+	return db, nil
 }
 
 func GetDB() *gorm.DB {

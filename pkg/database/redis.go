@@ -11,7 +11,7 @@ import (
 
 var redisClient *redis.Client
 
-// InitRedis returns *redis.Client, not interface{}
+// Initialize connection to Redis
 func InitRedis(cfg config.RedisConfig) (*redis.Client, error) {
 	redisClient = redis.NewClient(&redis.Options{
 		Addr:     cfg.GetRedisAddress(),
@@ -27,7 +27,7 @@ func InitRedis(cfg config.RedisConfig) (*redis.Client, error) {
 		return nil, fmt.Errorf("failed to connect to Redis: %w", err)
 	}
 
-	return redisClient, nil // Return *redis.Client directly
+	return redisClient, nil
 }
 
 func GetRedis() *redis.Client {
